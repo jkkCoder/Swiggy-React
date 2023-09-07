@@ -1,21 +1,24 @@
 const Shimmer = () => {
     return(
-        <div className="shimmer-container">
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div>
-            <div className="shimmer-cards"></div> 
+        <div className="flex flex-wrap">
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>
+            <div className="m-4 p-4 w-[250px] h-[250px] rounded-lg bg-[#f0f0f0]"></div>             
         </div>
     )
 }
