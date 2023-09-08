@@ -1,25 +1,41 @@
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import ResCategory from "./ResCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
     const {resId} = useParams()
-    const resInfo = useRestaurantMenu()
+    const resInfo = useRestaurantMenu(resId)
+
+    const [showIndex, setShowIndex] = useState(null)
     
     const {name , cuisines,costForTwoMessage} = resInfo?.cards[0]?.card?.card?.info || {}
-    const {itemCards} = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card ||[]
+
+    const categories = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+        c => c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    )
+    console.log("categories are ", categories)
 
     return !resInfo ? (<Shimmer />)
     :(
-        <div className="menu">
-            <h1>{name}</h1>
-            <p>{cuisines?.join(', ')} - {costForTwoMessage}</p>
-            <h2>Menu</h2>
-            <ul>
-                {itemCards?.map(card => (
-                    <li key={card?.card?.info?.id}>{card?.card?.info?.name} - Rs.{card?.card?.info?.defaultPrice/100 || card?.card?.info?.price/100}</li>
-                ))}
-            </ul>
+        <div className="text-center">
+            <h1 className="font-bold my-5 text-2xl">{name}</h1>
+            <p className="font-bold text-lg">{cuisines?.join(', ')} - {costForTwoMessage}</p>
+            {
+                categories.map((category, index) => (
+                    <ResCategory 
+                        key={category?.card?.card?.title} 
+                        data={category?.card?.card} 
+                        showItems={showIndex === index}
+                        setShowIndex={() => {
+                            if(index === showIndex)
+                                return setShowIndex(null)
+                            setShowIndex(index)
+                        }}
+                    />
+                ))
+            }
         </div>
     )
 }

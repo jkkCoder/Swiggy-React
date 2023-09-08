@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import { useContext, useEffect, useState } from "react";
+import RestaurantCard, {withHighRatedLabel} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
     const [listOfRestaurants , setListOfRestaurants] = useState([])
     const [filteredRestaurants, setFilteredRestaurants] = useState([])
 
     const [searchText, setSearch] = useState("")
+    const {loggedInUser, setUserInfo} = useContext(UserContext)
+
+    const RestaurantCardHighRated = withHighRatedLabel(RestaurantCard)
 
     useEffect(() => {
         fetchData();
@@ -18,13 +22,12 @@ const Body = () => {
         const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING')
         const json = await data.json()
 
+        const restaurantCard = json?.data?.cards?.find(c => c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget")
+
         // setListOfRestaurants(json?.data?.card[2]?.data?.data?.cards);     //api has changed, this is fetching wrong so uisng mock data only
-        setListOfRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-        setFilteredRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-
+        setListOfRestaurants(restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        setFilteredRestaurants(restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     }
-
-    console.log("list of restuarants ", listOfRestaurants)
 
     const onlineStatus = useOnlineStatus();
 
@@ -52,12 +55,19 @@ const Body = () => {
                         setFilteredRestaurants(filteredData)
                     }}>Top Rated Restaurants</button>
                 </div>  
+                <div className=" m-4 p-4 flex items-center">
+                    <input value={loggedInUser} onChange={e => setUserInfo(e.target.value)} className="border border-black p-2"/>
+                </div> 
             </div>
             <div className="flex flex-wrap">
                 {
                     filteredRestaurants?.map(obj => (
                         <Link key={obj.info.id} to={"/restaurant/" +obj.info.id}>
-                            <RestaurantCard resObj={obj?.info}/>
+                            {
+                                obj?.info?.avgRating >= 4.3 ? <RestaurantCardHighRated  resObj={obj?.info}/>
+                                :   <RestaurantCard resObj={obj?.info}/>
+                            }
+                            
                         </Link>
                     ))
                 } 
