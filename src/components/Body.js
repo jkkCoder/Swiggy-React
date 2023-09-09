@@ -22,7 +22,7 @@ const Body = () => {
         const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING')
         const json = await data.json()
 
-        const restaurantCard = json?.data?.cards?.find(c => c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget")
+        const restaurantCard = json?.data?.cards?.find(c => c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget" && c?.card?.card?.gridElements?.infoWithStyle?.["@type"] === 'type.googleapis.com/swiggy.presentation.food.v2.FavouriteRestaurantInfoWithStyle')
 
         // setListOfRestaurants(json?.data?.card[2]?.data?.data?.cards);     //api has changed, this is fetching wrong so uisng mock data only
         setListOfRestaurants(restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants)

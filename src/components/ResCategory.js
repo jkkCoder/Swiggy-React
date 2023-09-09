@@ -12,7 +12,7 @@ const ResCategory = ({data,showItems,setShowIndex}) => {
                     <span className="font-bold text-lg">{data.title} ({data?.itemCards?.length})</span>
                     <span>🔽</span>
                 </div>
-                {showItems && <ItemList items={data?.itemCards} />}
+                {showItems && <ItemList btnName={"Add +"} items={data?.itemCards} />}
             </div>            
         </div>
 
